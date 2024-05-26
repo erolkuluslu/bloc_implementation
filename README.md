@@ -1,8 +1,3 @@
-# bloc_implementation
-
-Here's a short GitHub description for your Flutter and Bloc implementation project:
-
----
 
 # Flutter Bloc Implementation
 
