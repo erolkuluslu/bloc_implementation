@@ -1,6 +1,7 @@
 import 'package:bloc_implementation/bloc/counter_bloc.dart';
 import 'package:bloc_implementation/cubit/counter_cubit.dart';
 import 'package:bloc_implementation/cubit/todo_cubit.dart';
+import 'package:bloc_implementation/pallete.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,12 +23,14 @@ class MyApp extends StatelessWidget {
         BlocProvider(create:(_) => CounterBloc()),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        theme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: Pallete.backgroundColor,
           useMaterial3: true,
+
         ),
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+
         home: const MyHomePage(),
       ),
     );

@@ -3,7 +3,6 @@ import 'package:bloc_implementation/cubit/todo_cubit.dart';
 import 'package:bloc_implementation/inc_dec_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'login_screen.dart';
 import 'models/todo_model.dart';
 
@@ -17,11 +16,12 @@ class MyHomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Colors.transparent,
         title: BlocBuilder<CounterBloc, int>(
           bloc: counterBloc,
           builder: (context, counter) {
             return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   '$counter',
@@ -33,13 +33,12 @@ class MyHomePage extends StatelessWidget {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text("Warning"),
-                          content: Text("You are about to leave this page"),
+                          title: const Text("Warning"),
+                          content: const Text("You are about to leave this page"),
                           actions: [
                             TextButton(
-                              child: Text("OK"),
+                              child: const Text("OK"),
                               onPressed: () {
-                                Navigator.of(context).pop();
                                 Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(builder: (context) => const LoginScreen()),
                                 );
@@ -49,11 +48,11 @@ class MyHomePage extends StatelessWidget {
                         );
                       },
                     );
-                  }, child: null,
+                  },
+                  child: const Text("Go to Login Page"),
                 ),
               ],
             );
-
           },
         ),
       ),
@@ -74,8 +73,6 @@ class MyHomePage extends StatelessWidget {
                   final title = todoTitleController.text;
                   if (title.isNotEmpty) {
                     // Add the new todo
-
-                   // context.read<TodoCubit>().addTodo(title);
                     BlocProvider.of<TodoCubit>(context).addTodo(title);
 
                     // Clear the text field after adding the todo
