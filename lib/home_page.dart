@@ -4,6 +4,7 @@ import 'package:bloc_implementation/inc_dec_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'login_screen.dart';
 import 'models/todo_model.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -20,10 +21,39 @@ class MyHomePage extends StatelessWidget {
         title: BlocBuilder<CounterBloc, int>(
           bloc: counterBloc,
           builder: (context, counter) {
-            return Text(
-              '$counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            return Row(
+              children: [
+                Text(
+                  '$counter',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Warning"),
+                          content: Text("You are about to leave this page"),
+                          actions: [
+                            TextButton(
+                              child: Text("OK"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                                );
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }, child: null,
+                ),
+              ],
             );
+
           },
         ),
       ),
@@ -44,7 +74,9 @@ class MyHomePage extends StatelessWidget {
                   final title = todoTitleController.text;
                   if (title.isNotEmpty) {
                     // Add the new todo
-                    context.read<TodoCubit>().addTodo(title);
+
+                   // context.read<TodoCubit>().addTodo(title);
+                    BlocProvider.of<TodoCubit>(context).addTodo(title);
 
                     // Clear the text field after adding the todo
                     todoTitleController.clear();
